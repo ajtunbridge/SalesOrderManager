@@ -34,9 +34,13 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Resources\ApplicationIcon.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -57,17 +61,16 @@
     </ApplicationDefinition>
     <Compile Include="Converters\BinaryImageConverter.cs" />
     <Compile Include="Converters\DeliveryDateConverter.cs" />
+    <Compile Include="MainWindowPresenter.cs" />
     <Compile Include="Presenters\SalesOrderPresenter.cs" />
     <Compile Include="ViewModels\SalesOrderViewModel.cs" />
-    <Compile Include="Views\SalesOrderFilterView.xaml.cs">
-      <DependentUpon>SalesOrderFilterView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="DataTemplates\SalesOrderDataTemplate.xaml.cs">
       <DependentUpon>SalesOrderDataTemplate.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SalesOrderView.xaml.cs">
       <DependentUpon>SalesOrderView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="WebBrowserUtility.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -80,10 +83,6 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\SalesOrderFilterView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="DataTemplates\SalesOrderDataTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -128,6 +127,10 @@
       <Project>{502dea6a-ea3e-4a9a-bc97-96097cc3c77c}</Project>
       <Name>CPECentral.Data.EF5</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\cpe-central\CPECentral\Tricorn\Tricorn.csproj">
+      <Project>{ee6d6ce5-01d9-403d-8af1-4a97019e1fc9}</Project>
+      <Name>Tricorn</Name>
+    </ProjectReference>
     <ProjectReference Include="..\OutlookService\OutlookService.csproj">
       <Project>{3e786274-f263-437c-b326-0a6f89696188}</Project>
       <Name>OutlookService</Name>
@@ -139,6 +142,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\PhotoUnavailableImage.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ApplicationIcon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\OutlookIcon_64x64.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

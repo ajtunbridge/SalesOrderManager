@@ -22,9 +22,11 @@ namespace SalesOrderManagerWPF.ViewModels
 
         public string LastQuoteNumber { get; set; }
 
-        public DateTime LastQuotedOn { get; set; }
+        public DateTime? LastQuotedOn { get; set; }
         
         public string SalesOrderFileName { get; set; }
+
+        public string DrawingFileName { get; set; }
 
         public byte[] PhotoBytes { get; set; }
     }

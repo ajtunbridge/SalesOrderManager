@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SalesOrderManagerWPF.Views"
              xmlns:converters="clr-namespace:SalesOrderManagerWPF.Converters"
+             xmlns:salesOrderManagerWpf="clr-namespace:SalesOrderManagerWPF"
              mc:Ignorable="d"
              d:DesignHeight="800" d:DesignWidth="1000">
     <UserControl.Resources>
@@ -39,7 +40,6 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-
         <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="3" Margin="5">
             <Border.Style>
                 <Style TargetType="Border">
@@ -92,10 +92,10 @@
         <Border Grid.Row="1" BorderBrush="Gray" BorderThickness="1" CornerRadius="3" Margin="5">
             <TabControl>
                 <TabItem Header="Sales order" FontSize="16" Height="50" Width="200">
-                    <WebBrowser Source="file://C:\e2v_Po_4500255191.pdf" />
+                    <WebBrowser x:Name="SalesOrderViewer" salesOrderManagerWpf:WebBrowserUtility.BindableSource="{Binding SalesOrderFileName}"/>
                 </TabItem>
                 <TabItem Header="Drawing file"  FontSize="16" Height="50" Width="200">
-                    <WebBrowser Source="file://C:\h17070a_11_v1.pdf"></WebBrowser>
+                    <WebBrowser x:Name="DrawingFileViewer" salesOrderManagerWpf:WebBrowserUtility.BindableSource="{Binding DrawingFileName}"></WebBrowser>
                 </TabItem>
             </TabControl>
         </Border>

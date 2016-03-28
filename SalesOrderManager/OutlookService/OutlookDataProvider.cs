@@ -49,8 +49,18 @@ namespace OutlookService
 
                             if (isPdf)
                             {
+                                if (!Directory.Exists(storageDirectory))
+                                {
+                                    Directory.CreateDirectory(storageDirectory);
+                                }
+
                                 var fileName = Path.Combine(storageDirectory, mail.Attachments[i].FileName);
-                                
+
+                                if (File.Exists(fileName))
+                                {
+                                    File.Delete(fileName);
+                                }
+
                                 mail.Attachments[i].SaveAsFile(fileName);
 
                                 results.Add(new Attachment {FileName=fileName, MailId=mail.EntryID});
