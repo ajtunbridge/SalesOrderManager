@@ -15,7 +15,7 @@ namespace SalesOrderParser
 {
     public static class PdfParser
     {
-        public static async Task<SalesOrderDetail> ParseSalesOrderAsync(string path, string orderNumberExpr, string deliveryExpr,
+        public static async Task<SalesOrderDetail> ParseSalesOrderAsync(string path, string mailId, string orderNumberExpr, string deliveryExpr,
             string buyerExpr, string drawingNumberExpr)
         {
             return await Task.Factory.StartNew(() =>
@@ -46,6 +46,7 @@ namespace SalesOrderParser
                     var result = new SalesOrderDetail
                     {
                         OrderNumber = orderNumberMatch.Success ? orderNumberMatch.Value.Trim() : "UNABLE TO PARSE!",
+                        MailId = mailId,
                         DeliveryDate =
                             deliveryMatch.Success ? DateTime.Parse(deliveryMatch.Value) : DateTime.MinValue,
                         DrawingNumber = drawingMatch.Success ? drawingMatch.Value : "UNABLE TO PARSE!",

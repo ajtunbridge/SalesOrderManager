@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SalesOrderManager", "SalesOrderManager\SalesOrderManager.csproj", "{770EC729-0A9D-4B02-B40C-9C6CE1A51395}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CPECentral.Data.EF5", "..\..\cpe-central\CPECentral\CPECentral.Data.EF5\CPECentral.Data.EF5.csproj", "{502DEA6A-EA3E-4A9A-BC97-96097CC3C77C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SalesOrderManagerWPF", "SalesOrderManagerWPF\SalesOrderManagerWPF.csproj", "{71A9B330-96DD-4BEC-A273-9A4E0FCF3334}"
@@ -23,14 +21,6 @@ Global
 		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{770EC729-0A9D-4B02-B40C-9C6CE1A51395}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{770EC729-0A9D-4B02-B40C-9C6CE1A51395}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{770EC729-0A9D-4B02-B40C-9C6CE1A51395}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{770EC729-0A9D-4B02-B40C-9C6CE1A51395}.Debug|x64.Build.0 = Debug|Any CPU
-		{770EC729-0A9D-4B02-B40C-9C6CE1A51395}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{770EC729-0A9D-4B02-B40C-9C6CE1A51395}.Release|Any CPU.Build.0 = Release|Any CPU
-		{770EC729-0A9D-4B02-B40C-9C6CE1A51395}.Release|x64.ActiveCfg = Release|Any CPU
-		{770EC729-0A9D-4B02-B40C-9C6CE1A51395}.Release|x64.Build.0 = Release|Any CPU
 		{502DEA6A-EA3E-4A9A-BC97-96097CC3C77C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{502DEA6A-EA3E-4A9A-BC97-96097CC3C77C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{502DEA6A-EA3E-4A9A-BC97-96097CC3C77C}.Debug|x64.ActiveCfg = Debug|Any CPU

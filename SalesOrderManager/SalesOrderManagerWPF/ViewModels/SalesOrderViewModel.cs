@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Tricorn;
 
 namespace SalesOrderManagerWPF.ViewModels
 {
@@ -20,14 +21,14 @@ namespace SalesOrderManagerWPF.ViewModels
 
         public string LastWorksOrderNumber { get; set; }
 
-        public string LastQuoteNumber { get; set; }
+        public string LastGroupReference { get; set; }
 
         public DateTime? LastQuotedOn { get; set; }
         
         public string SalesOrderFileName { get; set; }
 
-        public string DrawingFileName { get; set; }
-
         public byte[] PhotoBytes { get; set; }
+
+        public IEnumerable<QuoteDetail> LastQuoteDetails { get; set; }
     }
 }

@@ -1,9 +1,14 @@
 ﻿#region Using directives
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Input;
 using CPECentral.Data.EF5;
+using OutlookService;
+using SalesOrderManagerWPF.Properties;
 using SalesOrderManagerWPF.ViewModels;
 using SalesOrderManagerWPF.Views;
 using SalesOrderParser;
@@ -22,6 +27,30 @@ namespace SalesOrderManagerWPF.Presenters
             _view = view;
         }
 
+        public void MoveEmailToLaunchedFolder()
+        {
+            if (MessageBox.Show("This will move this sales order to the launched folder!\n\nDo you wish to continue?",
+                "Confirm complete",
+                MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+            {
+                return;
+            }
+
+            var ok = OutlookDataProvider.MoveMail(_view.OrderDetail.MailId, Settings.Default.LaunchedFolderName);
+
+            if (!ok)
+            {
+                MessageBox.Show(
+                    "Unable to move email to the launched folder.\n\nYou can try again or move it manually within Outlook.");
+
+                _view.OrderMarkedAsLaunched();
+            }
+            else
+            {
+                _view.OrderMarkedAsLaunched();
+            }
+        }
+
         public async Task RetrieveViewModelAsync(SalesOrderDetail orderDetail)
         {
             var model = await Task.Factory.StartNew(() =>
@@ -30,7 +59,7 @@ namespace SalesOrderManagerWPF.Presenters
                 string pathToDrawingFile = null;
                 string partName = null;
                 string customerName = null;
-                string quoteNumber = null;
+                string quoteReference = null;
                 string woNumber = null;
                 DateTime? date = null;
 
@@ -46,19 +75,21 @@ namespace SalesOrderManagerWPF.Presenters
 
                         var latestVersion = cpe.PartVersions.GetLatestVersion(part);
                         bytes = cpe.Photos.GetByPartVersion(latestVersion);
-                        if (latestVersion.DrawingDocumentId.HasValue)
-                        {
-                            var doc = cpe.Documents.GetById(latestVersion.DrawingDocumentId.Value);
-                            pathToDrawingFile = cpe.Documents.GetPathToDocument(doc, cpe);
-                        }
                     }
                 }
 
+                List<QuoteDetail> details = new List<QuoteDetail>();
+
                 using (var tricorn = new TricornDataProvider())
                 {
-                    quoteNumber = tricorn.GetLastQuoteNumber(orderDetail.DrawingNumber, out date);
+                    quoteReference = tricorn.GetLastQuoteGroupReference(orderDetail.DrawingNumber, out date);
 
                     woNumber = tricorn.GetLastWorksOrderNumber(orderDetail.DrawingNumber);
+
+                    if (quoteReference != null)
+                    {
+                        details = tricorn.GetQuoteDetails(quoteReference, orderDetail.DrawingNumber);
+                    }
                 }
 
                 var viewModel = new SalesOrderViewModel
@@ -69,11 +100,11 @@ namespace SalesOrderManagerWPF.Presenters
                     DrawingNumber = orderDetail.DrawingNumber,
                     Name = partName,
                     LastWorksOrderNumber = woNumber,
-                    LastQuoteNumber = quoteNumber,
+                    LastGroupReference = quoteReference,
                     LastQuotedOn = date,
                     SalesOrderFileName = orderDetail.FileName,
-                    DrawingFileName = pathToDrawingFile,
-                    PhotoBytes = bytes
+                    PhotoBytes = bytes,
+                    LastQuoteDetails = details
                 };
 
                 return viewModel;

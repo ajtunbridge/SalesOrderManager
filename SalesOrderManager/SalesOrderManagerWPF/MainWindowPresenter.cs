@@ -58,7 +58,7 @@ namespace SalesOrderManagerWPF
 
                 foreach (var attachment in salesOrderAttachments)
                 {
-                    var detail = PdfParser.ParseSalesOrderAsync(attachment.FileName, orderExpr,
+                    var detail = PdfParser.ParseSalesOrderAsync(attachment.FileName, attachment.MailId, orderExpr,
                         deliveryExpr, buyerExpr, drawingExpr).Result;
 
                     salesOrders.Add(detail);

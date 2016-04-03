@@ -22,8 +22,10 @@ namespace SalesOrderManagerWPF.Views
     /// </summary>
     public partial class SalesOrderView : UserControl
     {
-        public event EventHandler MarksAsLaunched;
+        public event EventHandler MarkAsLaunched;
         private SalesOrderPresenter _presenter;
+        public SalesOrderDetail OrderDetail { get; private set; }
+
 
         public SalesOrderView()
         {
@@ -46,25 +48,38 @@ namespace SalesOrderManagerWPF.Views
 
         public async void SetSalesOrder(SalesOrderDetail salesOrder)
         {
+            OrderDetail = salesOrder;
+
             if (salesOrder == null)
             {
-                DrawingFileViewer.Source = null;
                 SalesOrderViewer.Source = null;
+                FindDrawingView.ResetView();
             }
             else
             {
+                Visibility = Visibility.Hidden;
+
                 await _presenter.RetrieveViewModelAsync(salesOrder);
+
+                FindDrawingView.SearchByDrawingNumber(salesOrder.DrawingNumber);
+
+                Visibility = Visibility.Visible;
             }
         }
 
-        protected virtual void OnMarksAsLaunched()
+        public void OrderMarkedAsLaunched()
         {
-            MarksAsLaunched?.Invoke(this, EventArgs.Empty);
+            OnMarkAsLaunched();
+        }
+
+        protected virtual void OnMarkAsLaunched()
+        {
+            MarkAsLaunched?.Invoke(this, EventArgs.Empty);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            OnMarksAsLaunched();
+            _presenter.MoveEmailToLaunchedFolder();
         }
     }
 }

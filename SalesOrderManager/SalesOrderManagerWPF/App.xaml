@@ -4,6 +4,6 @@
              xmlns:local="clr-namespace:SalesOrderManagerWPF"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+         <SolidColorBrush x:Key="PriorityOrderBackgroundBrush" Color="#FFE08383"/>
     </Application.Resources>
 </Application>

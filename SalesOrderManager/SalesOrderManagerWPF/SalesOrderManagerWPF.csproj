@@ -61,16 +61,45 @@
     </ApplicationDefinition>
     <Compile Include="Converters\BinaryImageConverter.cs" />
     <Compile Include="Converters\DeliveryDateConverter.cs" />
+    <Compile Include="DataTemplates\FindDrawingDataTemplate.xaml.cs">
+      <DependentUpon>FindDrawingDataTemplate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DataTemplates\QuoteDetailsDataTemplate.xaml.cs">
+      <DependentUpon>QuoteDetailsDataTemplate.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MainWindowPresenter.cs" />
+    <Compile Include="Presenters\FindDrawingPresenter.cs" />
     <Compile Include="Presenters\SalesOrderPresenter.cs" />
+    <Compile Include="ViewModels\FindDrawingViewModel.cs" />
     <Compile Include="ViewModels\SalesOrderViewModel.cs" />
     <Compile Include="DataTemplates\SalesOrderDataTemplate.xaml.cs">
       <DependentUpon>SalesOrderDataTemplate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FindDrawingView.xaml.cs">
+      <DependentUpon>FindDrawingView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ImageViewer.xaml.cs">
+      <DependentUpon>ImageViewer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\LoadingOrderView.xaml.cs">
+      <DependentUpon>LoadingOrderView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SalesOrderView.xaml.cs">
       <DependentUpon>SalesOrderView.xaml</DependentUpon>
     </Compile>
     <Compile Include="WebBrowserUtility.cs" />
+    <Page Include="AppColors.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DataTemplates\FindDrawingDataTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DataTemplates\QuoteDetailsDataTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -84,6 +113,18 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="DataTemplates\SalesOrderDataTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\FindDrawingView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ImageViewer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\LoadingOrderView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -144,10 +185,13 @@
     <Resource Include="Images\PhotoUnavailableImage.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\ApplicationIcon.ico" />
+    <Resource Include="Resources\ApplicationIcon.ico" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\OutlookIcon_64x64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\PrintIcon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

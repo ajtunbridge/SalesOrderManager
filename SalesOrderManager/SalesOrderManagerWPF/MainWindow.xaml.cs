@@ -32,6 +32,10 @@ namespace SalesOrderManagerWPF
         {
             InitializeComponent();
 
+            Uri iconUri = new Uri("pack://application:,,,/Resources/ApplicationIcon.ico", UriKind.RelativeOrAbsolute);
+
+            this.Icon = BitmapFrame.Create(iconUri);
+
             _presenter = new MainWindowPresenter(this);
         }
         
@@ -39,14 +43,12 @@ namespace SalesOrderManagerWPF
         {
             await _presenter.RetrieveSalesOrdersFromOutlookAsync();
 
-            OrderView.MarksAsLaunched += OrderView_MarksAsLaunched;
+            OrderView.MarkAsLaunched += OrderViewMarkAsLaunched;
         }
 
-        private void OrderView_MarksAsLaunched(object sender, EventArgs e)
+        private void OrderViewMarkAsLaunched(object sender, EventArgs e)
         {
-            var salesOrders = OrdersList.ItemsSource as ObservableCollection<SalesOrderDetail>;
-
-            salesOrders.RemoveAt(0);
+            RescanButton_Click(sender, null);
         }
 
         public void DisplaySalesOrders(ObservableCollection<SalesOrderDetail> salesOrders)
@@ -57,6 +59,11 @@ namespace SalesOrderManagerWPF
             OrdersListHeader.Text = "Sales orders to launch";
 
             OrdersList.ItemsSource = salesOrders;
+
+            if (OrdersList.Items.Count > 0)
+            {
+                OrdersList.SelectedIndex = 0;
+            }
         }
 
         private void OrderView_Loaded(object sender, RoutedEventArgs e)
@@ -71,6 +78,8 @@ namespace SalesOrderManagerWPF
             }
 
             var salesOrder = OrdersList.SelectedItem as SalesOrderDetail;
+
+            LoadingView.Visibility = Visibility.Visible;
             
             OrderView.SetSalesOrder(salesOrder);
         }
@@ -79,6 +88,9 @@ namespace SalesOrderManagerWPF
         {
             OrderView.SetSalesOrder(null);
             OrdersList.ItemsSource = null;
+
+            OrderView.Visibility = Visibility.Hidden;
+            LoadingView.Visibility = Visibility.Hidden;
 
             Progress.Visibility = Visibility.Visible;
             RescanButton.Visibility = Visibility.Collapsed;

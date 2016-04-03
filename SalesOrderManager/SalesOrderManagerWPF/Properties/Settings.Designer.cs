@@ -34,5 +34,29 @@ namespace SalesOrderManagerWPF.Properties {
                 this["NewOrderFolderName"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Users\\Adam\\Documents\\Development\\System Data\\CPECentral\\Documents")]
+        public string DrawingFileLocation {
+            get {
+                return ((string)(this["DrawingFileLocation"]));
+            }
+            set {
+                this["DrawingFileLocation"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Sales orders - launched")]
+        public string LaunchedFolderName {
+            get {
+                return ((string)(this["LaunchedFolderName"]));
+            }
+            set {
+                this["LaunchedFolderName"] = value;
+            }
+        }
     }
 }

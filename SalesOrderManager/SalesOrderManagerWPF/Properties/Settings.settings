@@ -5,5 +5,11 @@
     <Setting Name="NewOrderFolderName" Type="System.String" Scope="User">
       <Value Profile="(Default)">Sales orders - unlaunched</Value>
     </Setting>
+    <Setting Name="DrawingFileLocation" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\Users\Adam\Documents\Development\System Data\CPECentral\Documents</Value>
+    </Setting>
+    <Setting Name="LaunchedFolderName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Sales orders - launched</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

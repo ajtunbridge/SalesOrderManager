@@ -8,6 +8,7 @@ namespace SalesOrderParser
 {
     public sealed class SalesOrderDetail
     {
+        public string MailId { get; set; }
         public string Buyer { get; set; }
         public string OrderNumber { get; set; }
         public DateTime DeliveryDate { get; set; }
