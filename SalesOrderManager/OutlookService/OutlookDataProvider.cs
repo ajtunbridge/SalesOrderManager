@@ -15,7 +15,7 @@ namespace OutlookService
     {
         public static IEnumerable<Attachment> ExtractSalesOrderPdfs(string folderToLookIn, string storageDirectory)
         {
-            var application = new Application();
+            Application application = new Application();
 
             try
             {

@@ -51,7 +51,7 @@ namespace SalesOrderManagerWPF.Presenters
             }
         }
 
-        public async Task RetrieveViewModelAsync(SalesOrderDetail orderDetail)
+        public async Task RetrieveViewModelAsync(SalesOrderListItemViewModel orderDetail)
         {
             var model = await Task.Factory.StartNew(() =>
             {

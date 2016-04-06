@@ -36,6 +36,7 @@ namespace SalesOrderManagerWPF.Presenters
                     var currentDir = dirStack.Pop();
 
                     var directories = Directory.GetDirectories(currentDir);
+
                     Array.ForEach(directories, d => dirStack.Push(d));
 
                     foreach (var file in Directory.GetFiles(currentDir).Where(f => f.ToLower().Contains(searchValue)))
@@ -52,7 +53,7 @@ namespace SalesOrderManagerWPF.Presenters
                         _view.AddResult(model);
                     }
                 }
-                
+
                 _view.SearchComplete();
             });
         }

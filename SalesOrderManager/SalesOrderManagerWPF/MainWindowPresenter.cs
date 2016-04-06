@@ -8,34 +8,50 @@ using System.Threading.Tasks;
 using CPECentral.Data.EF5;
 using OutlookService;
 using SalesOrderManagerWPF.Properties;
+using SalesOrderManagerWPF.ViewModels;
 using SalesOrderParser;
+using Tricorn;
 
 namespace SalesOrderManagerWPF
 {
     public class MainWindowPresenter
     {
         private MainWindow _mainWindow;
-
+        private List<SalesOrderListItemViewModel> _allSalesOrders;
+        private ObservableCollection<SalesOrderListItemViewModel> _filteredSalesOrders;
+         
         public MainWindowPresenter(MainWindow mainWindow)
         {
             _mainWindow = mainWindow;
         }
 
-        public async Task RetrieveSalesOrdersFromOutlookAsync()
+        public void FilterWhereOrderNumberContains(string value)
         {
-            var salesOrders = await GetSalesOrdersAsync();
+            _filteredSalesOrders.Clear();
 
-            var orderedCollection = new ObservableCollection<SalesOrderDetail>();
+            var filtered = _allSalesOrders.Where(so => so.OrderNumber.Contains(value));
 
-            foreach (var order in salesOrders.OrderBy(so => so.DeliveryDate))
+            foreach (var so in filtered.OrderBy(so => so.DeliveryDate))
             {
-                orderedCollection.Add(order);
+                _filteredSalesOrders.Add(so);
             }
-
-            _mainWindow.DisplaySalesOrders(orderedCollection);
         }
 
-        private async Task<ObservableCollection<SalesOrderDetail>> GetSalesOrdersAsync()
+        public async Task RetrieveSalesOrdersFromOutlookAsync()
+        {
+            _allSalesOrders = await GetSalesOrdersAsync();
+
+            _filteredSalesOrders = new ObservableCollection<SalesOrderListItemViewModel>();
+
+            foreach (var order in _allSalesOrders.OrderBy(so => so.DeliveryDate))
+            {
+                _filteredSalesOrders.Add(order);
+            }
+
+            _mainWindow.DisplaySalesOrders(_filteredSalesOrders);
+        }
+
+        private async Task<List<SalesOrderListItemViewModel>> GetSalesOrdersAsync()
         {
             return await Task.Factory.StartNew(() =>
             {
@@ -44,6 +60,7 @@ namespace SalesOrderManagerWPF
                     Path.GetTempPath());
 
                 string orderExpr, buyerExpr, deliveryExpr, drawingExpr;
+                byte[] logoBytes = null;
 
                 using (var cpe = new CPEUnitOfWork())
                 {
@@ -52,16 +69,23 @@ namespace SalesOrderManagerWPF
                     buyerExpr = customer.BuyerRegex;
                     deliveryExpr = customer.DeliveryDateRegex;
                     drawingExpr = customer.DrawingNumberRegex;
+                    logoBytes = customer.LogoBLOB;
                 }
 
-                var salesOrders = new ObservableCollection<SalesOrderDetail>();
+                var salesOrders = new List<SalesOrderListItemViewModel>();
 
                 foreach (var attachment in salesOrderAttachments)
                 {
                     var detail = PdfParser.ParseSalesOrderAsync(attachment.FileName, attachment.MailId, orderExpr,
                         deliveryExpr, buyerExpr, drawingExpr).Result;
 
-                    salesOrders.Add(detail);
+                    var model = new SalesOrderListItemViewModel
+                    {
+                        Buyer=detail.Buyer, DeliveryDate=detail.DeliveryDate, DrawingNumber=detail.DrawingNumber, OrderNumber = detail.OrderNumber,
+                        CompanyLogoBytes=logoBytes, FileName=detail.FileName, MailId=detail.MailId
+                    };
+
+                    salesOrders.Add(model);
                 }
 
                 return salesOrders;

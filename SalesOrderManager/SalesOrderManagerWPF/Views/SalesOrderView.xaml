@@ -14,27 +14,26 @@
             <dataTemplates:QuoteDetailsDataTemplate/>
         </DataTemplate>
         <converters:BinaryImageConverter x:Key="ImageConverter"/>
-        <converters:DeliveryDateConverter x:Key="DeliveryConverter"/>
+        <converters:OrderUrgencyValueConverter x:Key="OrderUrgencyBrushConverter"/>
         <Style x:Key="HeaderLabelStyle" TargetType="TextBlock">
-            <Setter Property="FontSize" Value="16"/>
-            <Setter Property="Foreground" Value="Black"/>
-            <Setter Property="FontWeight" Value="Bold"/>
-        </Style>
-        <Style x:Key="HeaderTextStyle" TargetType="TextBlock">
-            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontSize" Value="14"/>
             <Setter Property="Foreground" Value="Black"/>
             <Setter Property="FontWeight" Value="Regular"/>
+        </Style>
+        <Style x:Key="HeaderTextStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="FontWeight" Value="Bold"/>
             <EventSetter Event="MouseDown" Handler="HeaderText_MouseDown" />
             <Style.Triggers>
                 <Trigger Property ="IsMouseOver" Value="True">
                     <Setter Property= "Foreground" Value="Blue"/>
                     <Setter Property="Cursor" Value="Hand"/>
-                    <Setter Property="FontWeight" Value="Bold" />
                 </Trigger>
             </Style.Triggers>
         </Style>
         <Style x:Key="ButtonStyle" TargetType="Button">
-            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontSize" Value="14"/>
             <Setter Property="Margin" Value="5"/>
         </Style>
     </UserControl.Resources>
@@ -43,24 +42,28 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="3" Margin="5">
-            <Border.Style>
-                <Style TargetType="Border">
-                    <Setter Property="Background" Value="LightYellow"/>
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding Path=DeliveryDate, Converter={StaticResource DeliveryConverter}}" Value="True">
-                            <Setter Property="Background" Value="{StaticResource PriorityOrderBackgroundBrush}"/>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </Border.Style>
+        <Border CornerRadius="5" BorderBrush="Gray" BorderThickness="1" Margin="5">
+            <Border.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <LinearGradientBrush.RelativeTransform>
+                        <TransformGroup>
+                            <ScaleTransform CenterY="0.5" CenterX="0.5"/>
+                            <SkewTransform CenterY="0.5" CenterX="0.5"/>
+                            <RotateTransform Angle="-90" CenterY="0.5" CenterX="0.5"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </LinearGradientBrush.RelativeTransform>
+                    <GradientStop Color="#FFA8A8A8" Offset="0"/>
+                    <GradientStop Color="#FFECECEC" Offset="0.542"/>
+                </LinearGradientBrush>
+            </Border.Background>
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Border Grid.Column="0" BorderBrush="Gray" BorderThickness="1" CornerRadius="3" Margin="5">
-                    <Image Stretch="Fill" MaxHeight="180" Source="{Binding PhotoBytes, Converter={StaticResource ImageConverter}}"/>
+                <Border Grid.Column="0" BorderBrush="Black" BorderThickness="2" CornerRadius="3" Margin="5">
+                    <Image Stretch="Fill" MaxHeight="150" Source="{Binding PhotoBytes, Converter={StaticResource ImageConverter}}"/>
                 </Border>
                 <Grid Grid.Column="1" Margin="5">
                     <Grid.ColumnDefinitions>
@@ -103,10 +106,10 @@
         </Border>
         <Border Grid.Row="1" BorderBrush="Gray" BorderThickness="1" CornerRadius="3" Margin="5">
             <TabControl>
-                <TabItem Header="Sales order" FontSize="16" Height="50" Width="200">
+                <TabItem Header="Sales order" FontSize="14" Height="50" Width="200">
                     <WebBrowser x:Name="SalesOrderViewer" salesOrderManagerWpf:WebBrowserUtility.BindableSource="{Binding SalesOrderFileName}"/>
                 </TabItem>
-                <TabItem Header="Drawing file"  FontSize="16" Height="50" Width="200">
+                <TabItem Header="Drawing file"  FontSize="14" Height="50" Width="200">
                     <local:FindDrawingView x:Name="FindDrawingView"/>
                 </TabItem>
             </TabControl>

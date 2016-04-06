@@ -1,0 +1,51 @@
+﻿<UserControl x:Class="SalesOrderManagerWPF.Views.SalesOrderListItemView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SalesOrderManagerWPF.Views"
+             xmlns:converters="clr-namespace:SalesOrderManagerWPF.Converters"
+             xmlns:viewModels="clr-namespace:SalesOrderManagerWPF.ViewModels"
+             mc:Ignorable="d" 
+             Margin="5"
+             MinWidth="320"
+             d:DesignHeight="100" d:DesignWidth="300" d:DataContext="{d:DesignInstance viewModels:FakeSalesOrderListItemViewModel, IsDesignTimeCreatable=True}">
+    <UserControl.Resources>
+        <converters:OrderUrgencyValueConverter x:Key="OrderUrgencyBrushConverter"/>
+        <converters:BinaryImageConverter x:Key="ImageConverter"/>
+        <Style x:Key="ValueTextBlockStyle" TargetType="TextBlock">
+            <Setter Property="FontWeight" Value="Bold"></Setter>
+        </Style>
+    </UserControl.Resources>
+    <Border BorderBrush="Black" BorderThickness="1" CornerRadius="7">
+        <Border Background="White" CornerRadius="5" BorderBrush="{Binding DeliveryDate, Converter={StaticResource OrderUrgencyBrushConverter}}" BorderThickness="3">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Image Source="/Images/e2v.jpg" Stretch="Uniform" Margin="15"/>
+                <Grid Grid.Column="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Column="0" Grid.Row="0" Text="Order no: " Margin="3"/>
+                    <TextBlock Grid.Column="0" Grid.Row="1" Text="Buyer: " Margin="3"/>
+                    <TextBlock Grid.Column="0" Grid.Row="2" Text="Drawing no: " Margin="3"/>
+                    <TextBlock Grid.Column="0" Grid.Row="3" Text="Delivery: " Margin="3"/>
+                    <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding OrderNumber}" Margin="3" Style="{StaticResource ValueTextBlockStyle}"/>
+                    <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding Buyer}" Margin="3" Style="{StaticResource ValueTextBlockStyle}"/>
+                    <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding DrawingNumber}" Margin="3" Style="{StaticResource ValueTextBlockStyle}"/>
+                    <TextBlock Grid.Column="1" Grid.Row="3" Text="{Binding DeliveryDate, StringFormat=d, ConverterCulture=en-GB}" Margin="3" Style="{StaticResource ValueTextBlockStyle}"/>
+                </Grid>
+            </Grid>
+        </Border>
+    </Border>
+</UserControl>

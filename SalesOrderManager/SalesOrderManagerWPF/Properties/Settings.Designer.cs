@@ -25,7 +25,7 @@ namespace SalesOrderManagerWPF.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Sales orders - unlaunched")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Orders - new")]
         public string NewOrderFolderName {
             get {
                 return ((string)(this["NewOrderFolderName"]));
@@ -37,7 +37,7 @@ namespace SalesOrderManagerWPF.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Users\\Adam\\Documents\\Development\\System Data\\CPECentral\\Documents")]
+        [global::System.Configuration.DefaultSettingValueAttribute("\\\\CPE-SRV1\\Data\\Drawing Files")]
         public string DrawingFileLocation {
             get {
                 return ((string)(this["DrawingFileLocation"]));
@@ -49,7 +49,7 @@ namespace SalesOrderManagerWPF.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Sales orders - launched")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Orders - launched")]
         public string LaunchedFolderName {
             get {
                 return ((string)(this["LaunchedFolderName"]));

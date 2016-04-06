@@ -3,13 +3,13 @@
   <Profiles />
   <Settings>
     <Setting Name="NewOrderFolderName" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Sales orders - unlaunched</Value>
+      <Value Profile="(Default)">Orders - new</Value>
     </Setting>
     <Setting Name="DrawingFileLocation" Type="System.String" Scope="User">
-      <Value Profile="(Default)">C:\Users\Adam\Documents\Development\System Data\CPECentral\Documents</Value>
+      <Value Profile="(Default)">\\CPE-SRV1\Data\Drawing Files</Value>
     </Setting>
     <Setting Name="LaunchedFolderName" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Sales orders - launched</Value>
+      <Value Profile="(Default)">Orders - launched</Value>
     </Setting>
   </Settings>
 </SettingsFile>

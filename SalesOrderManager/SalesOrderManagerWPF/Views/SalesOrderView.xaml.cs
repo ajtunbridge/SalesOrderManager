@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using SalesOrderManagerWPF.Presenters;
+using SalesOrderManagerWPF.ViewModels;
 using SalesOrderParser;
 
 namespace SalesOrderManagerWPF.Views
@@ -24,7 +25,7 @@ namespace SalesOrderManagerWPF.Views
     {
         public event EventHandler MarkAsLaunched;
         private SalesOrderPresenter _presenter;
-        public SalesOrderDetail OrderDetail { get; private set; }
+        public SalesOrderListItemViewModel OrderDetail { get; private set; }
 
 
         public SalesOrderView()
@@ -46,7 +47,7 @@ namespace SalesOrderManagerWPF.Views
             Clipboard.SetText(textBlock.Text);
         }
 
-        public async void SetSalesOrder(SalesOrderDetail salesOrder)
+        public async void SetSalesOrder(SalesOrderListItemViewModel salesOrder)
         {
             OrderDetail = salesOrder;
 
